@@ -6,16 +6,16 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   if (process.env.SWAGGER === 'true') {
     const config = new DocumentBuilder()
-      .setTitle('Call Transfer API')
-      .setDescription('API to manipulate call transfers')
+      .setTitle('Authentication API')
+      .setDescription('API to generate JWT tokens signed with a private key')
       .setVersion('1.0')
-      .addTag('call transfer api')
+      .addTag('authentication api')
       .build();
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('swagger', app, document);
   }
 
-  await app.listen(3001);
+  await app.listen(8080);
 
   if ((module as any).hot) {
     (module as any).hot.accept();

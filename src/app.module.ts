@@ -12,7 +12,7 @@ import { User, UserSchema } from './schema/user';
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(
-      `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@localhost`,
+      `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@mongo`,
     ),
     JwtModule.register({
       privateKey: process.env.TRANSFER_CALL_PRIVATE_KEY,
