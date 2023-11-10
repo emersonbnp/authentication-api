@@ -24,11 +24,8 @@ export class AppController {
       const token = await this.appService.generateToken(user.toUser());
       return response.status(HttpStatus.OK).json({ data: token });
     } catch (e) {
-      if (e instanceof NotFoundException) {
-        return response.status(HttpStatus.NOT_FOUND).json({error: 'Usuário não encontrado'});
-      }
       if (e instanceof BadRequestException) {
-        return response.status(HttpStatus.BAD_REQUEST).json();
+        return response.status(HttpStatus.BAD_REQUEST).json({error: 'Usuário não encontrado'});
       }
       return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json();
     }

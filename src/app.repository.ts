@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from './schema/user';
@@ -12,6 +12,6 @@ export class UserRepository {
   async findUser(user: User): Promise<User> {
     const foundUser = await this.userModel.find(user).exec();
     if (foundUser?.length) return foundUser[0];
-    else throw new NotFoundException('Invalid username or password');
+    else throw new BadRequestException('Invalid username or password');
   }
 }
