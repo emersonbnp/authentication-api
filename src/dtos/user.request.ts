@@ -1,5 +1,5 @@
 import { IsEmail, IsNotEmpty } from 'class-validator';
-import { User } from 'src/schema/user';
+import { User } from '../schema/user';
 
 export class UserRequest {
   constructor({ username, password }) {

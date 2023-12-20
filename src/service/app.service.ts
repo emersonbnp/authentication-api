@@ -1,12 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserRepository } from './app.repository';
-import { User } from './schema/user';
+import { UserRepository } from '../repository/app.repository';
+import { User } from '../schema/user';
+import { IAppService } from './app.service.interface';
+import { IUserRepository } from '../repository/app.repository.interface';
 
 @Injectable()
-export class AppService {
+export class AppService implements IAppService {
   constructor(
-    private readonly userRepository: UserRepository,
+    @Inject(IUserRepository)private readonly userRepository: IUserRepository,
     private readonly jwtTokenService: JwtService,
   ) {}
 

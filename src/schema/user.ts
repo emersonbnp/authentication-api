@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 import { Location } from './location';
 
 export type UserDocument = User & Document;
@@ -10,6 +10,7 @@ export class User {
     this.email = email;
     this.password = password;
   }
+  readonly _id: Types.ObjectId;
   @Prop({ unique: true })
   readonly userUuid: string;
   @Prop({ required: true, unique: true })

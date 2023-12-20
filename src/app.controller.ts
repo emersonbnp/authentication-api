@@ -6,13 +6,14 @@ import {
   NotFoundException,
   Post,
   Res,
+  Inject
 } from '@nestjs/common';
-import { AppService } from './app.service';
+import { IAppService } from './service/app.service.interface';
 import { UserRequest } from './dtos/user.request';
 
 @Controller('/auth')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor (@Inject(IAppService)private readonly appService: IAppService) {}
 
   @Post('/generate-token')
   async generateToken(
@@ -22,10 +23,13 @@ export class AppController {
     try {
       user = new UserRequest(user);
       const token = await this.appService.generateToken(user.toUser());
-      return response.status(HttpStatus.OK).json({ data: token });
+      return response.status(HttpStatus.NOT_ACCEPTABLE).json({ data: token });
     } catch (e) {
+      if (e instanceof NotFoundException) {
+        return response.status(HttpStatus.NOT_FOUND).json({error: 'Usuário não encontrado'});
+      }
       if (e instanceof BadRequestException) {
-        return response.status(HttpStatus.BAD_REQUEST).json({error: 'Usuário não encontrado'});
+        return response.status(HttpStatus.BAD_REQUEST).json();
       }
       return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json();
     }
