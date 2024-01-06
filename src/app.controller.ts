@@ -25,7 +25,7 @@ export class AppController {
       return response.status(HttpStatus.OK).json({ data: token });
     } catch (e) {
       if (e instanceof NotFoundException) {
-        return response.status(HttpStatus.NOT_FOUND).json();
+        return response.status(HttpStatus.NOT_FOUND).json({error: 'Usuário não encontrado'});
       }
       if (e instanceof BadRequestException) {
         return response.status(HttpStatus.BAD_REQUEST).json();
