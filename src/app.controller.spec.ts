@@ -102,8 +102,6 @@ describe('AppController', () => {
        
         const mockToken = 123;
   
-        //jest.spyOn(appController, 'generateToken').mockResolvedValue(mockToken);
-  
         const mockResponse = {
           status: jest.fn().mockReturnThis(),
           json: jest.fn(),
